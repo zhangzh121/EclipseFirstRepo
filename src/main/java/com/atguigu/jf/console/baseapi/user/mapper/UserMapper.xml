@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atguigu.jf.console.baseapi.user.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.atguigu.jf.console.user.bean.pojo.User" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="CHAR" />
+    <result column="user_age" property="userAge" jdbcType="INTEGER" />
+    <result column="user_gender" property="userGender" jdbcType="INTEGER" />
+  </resultMap>
+	<delete id="deleteByPrimaryKey" parameterType="Integer">
+		delete from t_user where user_id = #{userId}
+	</delete>
+	<insert id="insert" parameterType="com.atguigu.jf.console.user.bean.pojo.User">
+		insert into t_user (user_name,user_age,user_gender)
+		values (#{user.userName},#{user.userAge},#{user.userGender})
+	</insert>
+	<select id="selectByPrimaryKey" parameterType="Integer">
+		select user_id,user_name,user_age,user_gender
+		from t_user where user_id = #{userId}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select user_id,user_name,user_age,user_gender
+		from t_user
+	</select>
+	<update id="updateByPrimaryKey" parameterType="com.atguigu.jf.console.user.bean.pojo.User">
+		update t_user set　user_name = #{user.userName},
+			user_age=#{user.userAge},
+			user_gender = #{user.userGender}
+		where user_id = #{userId}
+		
+	</update>
+	<select id="selectAllPage" resultMap="BaseResultMap">
+			select user_id,user_name,user_age,user_gender
+		from t_user 
+		<if test="start != null and limit != null">
+			limit #{start} ,#{limit}
+		</if>
+	</select>
+	<select id="selectUserListCount" resultType="java.lang.Integer">
+		select count(1) from t_user 
+	</select>
+  
+</mapper>
