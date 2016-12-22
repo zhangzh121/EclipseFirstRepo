@@ -57,4 +57,5 @@
 	</aop:config>
 	<!-- （4）开启事务 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<!-- 测试一下-->
 </beans>
